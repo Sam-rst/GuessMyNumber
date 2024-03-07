@@ -10,7 +10,8 @@ const highscore = document.getElementById("highscore");
 const btnAgain = document.querySelector('.again');
 
 function generateRandomNumber() {
-    return Math.floor(Math.random() * 20) + 1;
+    nbrGuess = Math.floor(Math.random() * 20) + 1;
+    return nbrGuess;
 }
 
 function resetGame() {
@@ -103,25 +104,24 @@ function sendData() {
         success: function (response) {
             // Met à jour le contenu de l'élément avec la classe 'message' selon la réponse
             $('.message').text(response.message);
-            
+
             // Optionnel : Ajoutez des actions supplémentaires 
-            if(response.type === 'success') {
+            if (response.type === 'success') {
                 // supposition correcte
-            } else if(response.type === 'hint') {
+            } else if (response.type === 'hint') {
                 // supposition trop haute ou trop basse
-            } else if(response.type === 'error') {
+            } else if (response.type === 'error') {
                 // supposition invalide
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             $('.message').text("Erreur lors de l'envoi de la supposition.");
         }
     });
 }
 
-
-
 document.addEventListener('DOMContentLoaded', (event) => {
+
 
     const guessInput = document.querySelector('.guess');
     guessInput.value = '';
