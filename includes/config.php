@@ -1,6 +1,6 @@
 <?php
-$host = "localhost";
-$dbname = "epsi_projects";
-$user = "root";
+$host = "";
+$dbname = "";
+$user = "";
 $password = "";
 ?>
