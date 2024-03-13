@@ -75,6 +75,10 @@ $(document).ready(function() {
         let currentHighscore = parseInt($('#highscore').text(), 10);
         if (!isNaN(currentScore) && currentScore > currentHighscore) {
             $('#highscore').text(currentScore);
+            $('#scoreHighScore').text(currentScore);
+            $('#btnModal').removeClass("d-none");
+            document.getElementById('inputScore').value = currentScore;
+
         }
     }
 
@@ -100,4 +104,5 @@ $(document).ready(function() {
             }
         });
     }
+
 });

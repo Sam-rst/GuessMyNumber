@@ -1,119 +1,122 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: inherit !important;
 }
 
 html {
-  font-size: 62.5%;
-  box-sizing: border-box;
+  font-size: 62.5% !important;
+  box-sizing: border-box !important;
 }
 
 body {
-  font-family: 'Press Start 2P', sans-serif;
-  color: #eee;
-  background-color: #222;
-  /* background-color: #60b347; */
+  font-family: 'Press Start 2P', sans-serif !important;
+  color: #eee !important;
+  background-color: #222 !important;
+}
+
+body .win {
+  background-color: #60b347 !important;
 }
 
 /* LAYOUT */
 header {
-  position: relative;
-  height: 35vh;
-  border-bottom: 7px solid #eee;
+  position: relative !important;
+  height: 35vh !important;
+  border-bottom: 7px solid #eee !important;
 }
 
 main {
-  height: 65vh;
-  color: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  height: 65vh !important;
+  color: #eee !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-around !important;
 }
 
 .left {
-  width: 52rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 52rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
 }
 
 .right {
-  width: 52rem;
-  font-size: 2rem;
+  width: 52rem !important;
+  font-size: 2rem !important;
 }
 
 /* ELEMENTS STYLE */
 h1 {
-  font-size: 4rem;
-  text-align: center;
-  position: absolute;
-  width: 100%;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  font-size: 4rem !important;
+  text-align: center !important;
+  position: absolute !important;
+  width: 100% !important;
+  top: 52% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }
 
 .number {
-  background: #eee;
-  color: #333;
-  font-size: 6rem;
-  width: 15rem;
-  padding: 3rem 0rem;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, 50%);
+  background: #eee !important;
+  color: #333 !important;
+  font-size: 6rem !important;
+  width: 15rem !important;
+  padding: 3rem 0rem !important;
+  text-align: center !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translate(-50%, 50%) !important;
 }
 
 .between {
-  font-size: 1.4rem;
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
+  font-size: 1.4rem !important;
+  position: absolute !important;
+  top: 2rem !important;
+  right: 2rem !important;
 }
 
 .again {
-  position: absolute;
-  top: 2rem;
-  left: 2rem;
+  position: absolute !important;
+  top: 2rem !important;
+  left: 2rem !important;
 }
 
 .guess {
-  background: none;
-  border: 4px solid #eee;
-  font-family: inherit;
-  color: inherit;
-  font-size: 5rem;
-  padding: 2.5rem;
-  width: 25rem;
-  text-align: center;
-  display: block;
-  margin-bottom: 3rem;
+  background: none !important;
+  border: 4px solid #eee !important;
+  font-family: inherit !important;
+  color: inherit !important;
+  font-size: 5rem !important;
+  padding: 2.5rem !important;
+  width: 25rem !important;
+  text-align: center !important;
+  display: block !important;
+  margin-bottom: 3rem !important;
 }
 
 .btn {
-  border: none;
-  background-color: #eee;
-  color: #222;
-  font-size: 2rem;
-  font-family: inherit;
-  padding: 2rem 3rem;
-  cursor: pointer;
+  border: none !important;
+  background-color: #eee !important;
+  color: #222 !important;
+  font-size: 2rem !important;
+  font-family: inherit !important;
+  padding: 2rem 3rem !important;
+  cursor: pointer !important;
 }
 
 .btn:hover {
-  background-color: #ccc;
+  background-color: #ccc !important;
 }
 
 .message {
-  margin-bottom: 8rem;
-  height: 3rem;
+  margin-bottom: 8rem !important;
+  height: 3rem !important;
 }
 
 .label-score {
-  margin-bottom: 2rem;
+  margin-bottom: 2rem !important;
 }
