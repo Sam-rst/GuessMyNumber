@@ -1,12 +1,13 @@
 <?php
-
-require_once('includes/dbconnect.php');
-
-$stmtGetScores = $pdo->prepare("SELECT * FROM guessmynumber WHERE score != 0 GROUP BY pseudo ORDER BY score DESC");
-$stmtGetScores->execute();
-$scores = $stmtGetScores->fetchAll(PDO::FETCH_ASSOC);
+session_start();
+if (isset($_SESSION['alert'])) {
+    $alert = $_SESSION['alert'];
+    AlertManager::displayAlert($alert['type'], $alert['message']);
+    unset($_SESSION['alert']);
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
