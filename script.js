@@ -1,21 +1,21 @@
 'use strict';
 
-$(document).ready(function() {
+$(document).ready(function () {
     // Réinitialisation du jeu au chargement de la page
     resetGame();
 
     // Bouton de vérification de la supposition
-    $('#btncheck').click(function() {
+    $('#btncheck').click(function () {
         sendData();
     });
 
     // Bouton pour recommencer une partie
-    $('.again').click(function() {
+    $('.again').click(function () {
         resetGame();
     });
 
     // Enforce input range
-    $('.guess').on('input', function() {
+    $('.guess').on('input', function () {
         enforceIntegerRange(this);
     });
 
@@ -43,7 +43,7 @@ $(document).ready(function() {
             processData: false,
             contentType: false,
             dataType: 'json', // Attend une réponse en JSON
-            success: function(response) {
+            success: function (response) {
                 $('#message').text(response.message);
 
                 if (response.type === 'success') {
@@ -54,7 +54,7 @@ $(document).ready(function() {
                     updatescore();
                 }
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 $('#message').text("Erreur lors de l'envoi de la supposition.");
             }
         });
@@ -96,10 +96,10 @@ $(document).ready(function() {
             type: "POST",
             url: "backend.php",
             data: { action: 'reset' }, // Ajoutez le traitement de cette action côté serveur
-            success: function() {
+            success: function () {
                 console.log('Game has been reset.');
             },
-            error: function() {
+            error: function () {
                 console.log('Error resetting the game.');
             }
         });

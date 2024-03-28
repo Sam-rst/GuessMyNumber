@@ -1,27 +1,34 @@
 <?php
-session_start(); // Commence ou reprend une session PHP
+session_start();
 header('Content-Type: application/json');
 
-// Génère et stocke le nombre à deviner dans la session si ce n'est pas déjà fait
-if (!isset($_SESSION['numberToGuess'])) {
-    $_SESSION['numberToGuess'] = rand(1, 20);
-}
+class NumberGuessingGame {
+    private $numberToGuess;
 
-$userGuess = isset($_POST['guess']) ? (int)$_POST['guess'] : null;
-$numberToGuess = $_SESSION['numberToGuess']; // Utilise la valeur stockée en session
-$response = [];
-
-if ($userGuess !== null) {
-    if ($userGuess === $numberToGuess) {
-        $response = ['type' => 'success', 'message' => 'Bravo ! Vous avez deviné le nombre.'];
-        unset($_SESSION['numberToGuess']); // Optionnel : Réinitialiser après un succès
-    } elseif ($userGuess > $numberToGuess) {
-        $response = ['type' => 'hint', 'message' => 'Votre supposition est trop haute.'];
-    } elseif ($userGuess < $numberToGuess) {
-        $response = ['type' => 'hint', 'message' => 'Votre supposition est trop basse.'];
+    public function __construct() {
+        if (!isset($_SESSION['numberToGuess'])) {
+            $_SESSION['numberToGuess'] = rand(1, 20);
+        }
+        $this->numberToGuess = $_SESSION['numberToGuess'];
     }
-} else {
-    $response = ['type' => 'error', 'message' => 'Supposition invalide.'];
+
+    public function guess($userGuess) {
+        if ($userGuess === null) {
+            return ['type' => 'error', 'message' => 'Supposition invalide.'];
+        } elseif ($userGuess === $this->numberToGuess) {
+            unset($_SESSION['numberToGuess']); // Réinitialiser après un succès
+            return ['type' => 'success', 'message' => 'Bravo ! Vous avez deviné le nombre.'];
+        } elseif ($userGuess > $this->numberToGuess) {
+            return ['type' => 'hint', 'message' => 'Votre supposition est trop haute.'];
+        } else {
+            return ['type' => 'hint', 'message' => 'Votre supposition est trop basse.'];
+        }
+    }
 }
+
+$game = new NumberGuessingGame();
+$userGuess = isset($_POST['guess']) ? (int)$_POST['guess'] : null;
+$response = $game->guess($userGuess);
 
 echo json_encode($response);
+?>

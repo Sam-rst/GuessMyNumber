@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
 
 * {
-  margin: 0 !important;
-  padding: 0 !important;
+  /* margin: 0 !important;
+  padding: 0 !important; */
   box-sizing: inherit !important;
 }
 
@@ -119,4 +119,70 @@ h1 {
 
 .label-score {
   margin-bottom: 2rem !important;
+}
+
+/* Supprimez tous les !important où ils ne sont pas nécessaires pour éviter les conflits de style. */
+
+.modal-header h2,
+.modal-body h3 {
+  margin-bottom: 1rem;
+  /* Espacement en dessous des en-têtes */
+}
+
+.modal-body p {
+  margin-bottom: 2rem;
+  /* Espacement en dessous des paragraphes */
+}
+
+.input-group {
+  margin-bottom: 2rem;
+  /* Espacement en dessous des groupes d'entrée */
+}
+
+/* Si vous avez besoin de régler la taille du modal pour éviter le débordement */
+.modal-dialog {
+  max-width: 500px;
+  /* Ajustez la largeur maximale du modal si nécessaire */
+}
+
+/* Pour centrer le modal horizontalement */
+.modal-dialog-centered {
+  display: flex;
+  justify-content: center;
+  /* Centrer horizontalement dans la fenêtre */
+}
+
+/* Ajouter un défilement dans le modal si le contenu est trop long */
+.modal-body {
+  max-height: 70vh;
+  /* Hauteur maximale du corps du modal */
+  overflow-y: auto;
+  /* Ajouter un défilement vertical si nécessaire */
+}
+
+/* Style du bouton Enregistrer pour le rendre cohérent avec les autres boutons */
+.btn-enregistrer {
+  background-color: #ccc;
+  /* Couleur de fond */
+  color: #333;
+  /* Couleur du texte */
+  border: none;
+  /* Pas de bordure */
+}
+
+.btn-enregistrer:hover {
+  background-color: #bbb;
+  /* Couleur de fond au survol */
+}
+
+.modal-body h3 {
+  margin-top: 1rem;
+  /* Ou utilisez une classe Bootstrap comme mt-3 pour la marge en haut */
+  margin-bottom: 1rem;
+  /* Ou utilisez mb-3 pour la marge en bas */
+}
+
+.text-center {
+  margin: 2rem 0;
+  /* Donne un espacement vertical avant et après le message "Aucun joueur en lice" */
 }

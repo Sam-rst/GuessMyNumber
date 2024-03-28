@@ -1,12 +1,13 @@
 <?php
-
-require_once('includes/dbconnect.php');
-
-$stmtGetScores = $pdo->prepare("SELECT * FROM guessmynumber WHERE score != 0 GROUP BY pseudo ORDER BY score DESC");
-$stmtGetScores->execute();
-$scores = $stmtGetScores->fetchAll(PDO::FETCH_ASSOC);
+session_start();
+if (isset($_SESSION['alert'])) {
+  $alert = $_SESSION['alert'];
+  AlertManager::displayAlert($alert['type'], $alert['message']);
+  unset($_SESSION['alert']);
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,70 +32,69 @@ $scores = $stmtGetScores->fetchAll(PDO::FETCH_ASSOC);
       </button>
 
       <div class="modal modal-lg fade text-white" id="victoireModal" tabindex="-1" aria-labelledby="victoireModalLabel" data-bs-theme="dark">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title" id="victoireModalLabel">Vous avez gagné !</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <div class="card bg-opacity-75" id="victoire">
-              <div class="card-body">
-                <ul class="list-group list-group-flush rounded">
-                  <li class="list-group-item">
-                    <h3>Voici le top classement :</h3>
+        <div class="modal-dialog modal-dialog-centered" style="margin-left: auto; margin-right: auto;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title fs-3" id="victoireModalLabel">Vous avez gagné !</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <h3 class="fs-5 mb-3">Voici le top classement :</h3>
+              <?php
+              if (!empty($scores)) { ?>
+                <table class="table align-middle table-striped table-hover table-primary text-center table-sm">
+                  <thead>
+                    <tr class="table-primary">
+                      <th>Pseudo</th>
+                      <th>Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
                     <?php
-                    if (!empty($scores)) { ?>
-                      <table class="table align-middle table-striped table-hover table-primary text-center table-sm">
-                        <thead>
-                          <tr class="table-primary">
-                            <th>Pseudo</th>
-                            <th>Score</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php
-                          $count = 0;
-                          foreach ($scores as $scoreJoueur) {
-                            if ($count == 10) {
-                              break;
-                            } // On affiche que les 10 meilleurs joueurs
-                          ?>
-                            <tr>
-                              <td><?= $scoreJoueur['pseudo'] ?></td>
-                              <td><?= $scoreJoueur['score'] ?></td>
-                            </tr>
-                          <?php } ?>
-                        </tbody>
-                      </table>
-                    <?php } else {
-                      echo '<h1 class="text-center"><button class="btn btn-primary"> Aucun joueur en lice !</button></h1>';
-                    } ?>
-                  </li>
-                  <li class="list-group-item">
-                    <h3>Voulez-vous sauvegarder votre score ?</h3>
-                    <br><br>
-                    <form action="code.php" method="post">
-                    <h3>Votre meilleur score : <b id="scoreHighScore">0</b></h3><input type="number" id="inputScore" class="d-none" name="score" value="0">
-                      <div class="row">
-                        <div class="col-4">
-                          <div class="input-group mb-3">
-                            <span class="input-group-text">Pseudo</span>
-                            <input type="text" name="pseudo" class="form-control" placeholder="Votre pseudo" aria-label="pseudo">
-                          </div>
-                        </div>
-                        <div class="col-1">
-                          <button type="submit" class="btn btn-success" name="insert">Enregistrer</button>
-                        </div>
+                    $count = 0;
+                    foreach ($scores as $scoreJoueur) {
+                      if ($count == 10) {
+                        break;
+                      } // On affiche que les 10 meilleurs joueurs
+                    ?>
+                      <tr>
+                        <td><?= htmlspecialchars($scoreJoueur['pseudo']) ?></td>
+                        <td><?= htmlspecialchars($scoreJoueur['score']) ?></td>
+                      </tr>
+                    <?php } ?>
+                  </tbody>
+                </table>
+              <?php } else { ?>
+                <!-- Affichez ce message si aucun score n'est présent -->
+                <div class="text-center my-4" style="background-color:white;color:black">
+                  <h3>Aucun joueur en lice !</h3>
+                </div>
+              <?php } ?>
+              </li>
+              <li class="list-group-item">
+                <h3 class="mt-4">Voulez-vous sauvegarder votre score ?</h3>
+                <br><br>
+                <form action="code.php" method="post">
+                  <p class="mb-3">Votre meilleur score : <strong id="scoreHighScore">16</strong></p>
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="input-group mb-3">
+                        <span class="input-group-text">Pseudo</span>
+                        <input type="text" name="pseudo" class="form-control" placeholder="Votre pseudo" aria-label="pseudo">
                       </div>
-                    </form>
-                  </li>
-                </ul>
-              </div>
+                    </div>
+                    <div class="col-1">
+                      <button type="submit" class="btn btn-success" name="insert">Enregistrer</button>
+                    </div>
+                  </div>
+                </form>
+              </li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
     </div>
     <p class="between">(Between 1 and 20)</p>

@@ -1,44 +1,66 @@
 <?php
+class AlertManager
+{
+    private $type;
+    private $message;
 
-if (isset($_SESSION['message']) && isset($_SESSION['messageColor'])) {
-    if ($_SESSION['messageColor'] == "success") { ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i><strong>Success : </strong>
-            <?= $_SESSION['message'] ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <?php
-    } else if ($_SESSION['messageColor'] == "danger") { ?>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-exclamation-triangle-fill me-2"></i><strong>Attention : </strong>
-            <?= $_SESSION['message'] ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php
-    } else if ($_SESSION['messageColor'] == "warning") { ?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i><strong>Problème : </strong>
-            <?= $_SESSION['message'] ?>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-        <?php
-    } else if ($_SESSION['messageColor'] == "info") { ?>
-                    <div class="alert alert-info alert-dismissible fade show" role="alert">
-                        <i class="bi bi-bell-fill"></i><strong> Info : </strong>
-            <?= $_SESSION['message'] ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-        <?php
-    } else { ?>
-                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i><strong>Problème : </strong> Il y a un soucis avec l'affichage
-                        du message
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-        <?php
+    public function __construct($type = null, $message = null)
+    {
+        $this->type = $type;
+        $this->message = $message;
     }
-    // Une fois l'affichage terminé, on détruit les variables de session
-    unset($_SESSION['message']);
-    unset($_SESSION['messageColor']);
 
+    public function setAlert($type, $message)
+    {
+        $this->type = $type;
+        $this->message = $message;
+    }
+
+    public static function displayAlert($type, $message)
+    {
+        $icon = self::getIcon($type);
+        $typeText = self::getTypeText($type);
+        echo "<div class=\"alert alert-{$type} alert-dismissible fade show\" role=\"alert\">";
+        echo "<i class=\"bi {$icon} me-2\"></i><strong>{$typeText} : </strong>";
+        echo htmlspecialchars($message);
+        echo "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
+        echo "</div>";
+    }
+
+    private function getIcon($type)
+    {
+        switch ($type) {
+            case 'success':
+                return 'bi-check-circle-fill';
+            case 'danger':
+                return 'bi-exclamation-triangle-fill';
+            case 'warning':
+                return 'bi-exclamation-triangle-fill';
+            case 'info':
+                return 'bi-bell-fill';
+            default:
+                return 'bi-exclamation-circle-fill';
+        }
+    }
+
+    private function getTypeText($type)
+    {
+        switch ($type) {
+            case 'success':
+                return 'Succès';
+            case 'danger':
+                return 'Attention';
+            case 'warning':
+                return 'Avertissement';
+            case 'info':
+                return 'Info';
+            default:
+                return 'Inconnu';
+        }
+    }
+    
+    public function getAlert()
+    {
+        return ['type' => $this->type, 'message' => $this->message];
+    }
 }
