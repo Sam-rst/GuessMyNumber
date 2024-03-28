@@ -1,7 +1,6 @@
 <?php
 session_start(); // Commencez la session en haut de votre fichier PHP.
 
-require_once 'includes/config.php'; // Assurez-vous que ce fichier renvoie l'instance de PDO.
 require_once 'includes/dbconnect.php'; 
 require_once 'includes/scoreManager.php'; // Ce fichier contient la classe ScoreManager.
 
